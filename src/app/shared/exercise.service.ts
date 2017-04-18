@@ -11,13 +11,17 @@ export class ExerciseService {
 
   constructor(private http: Http) {}
 
-  getExcercises(): Promise<Exercise[]> {
-    const EXER: Exercise[] = [
+  private EXER: Exercise[] = [
       { id: 1, name: 'Verbos 1', description: "Verbos" },
       { id: 2, name: 'Sustantivos 1', description: "Sustantivos" },
       { id: 3, name: 'Números 1', description: ''}
-    ];
+  ];
 
-    return Promise.resolve(EXER);
+  getExcercises(): Promise<Exercise[]> {
+    return Promise.resolve(this.EXER);
+  }
+
+  getExerciseById(id: number): Promise<Exercise> {
+    return Promise.resolve(this.EXER.find(e => e.id === id));
   }
 }
