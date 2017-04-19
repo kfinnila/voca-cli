@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { Exercise } from '../../models/exercise';
 import { ExerciseService } from '../../shared/exercise.service';
+
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'app-question',
@@ -10,15 +14,21 @@ import { ExerciseService } from '../../shared/exercise.service';
 })
 export class QuestionComponent implements OnInit {
   exercise: Exercise;
+  exe: Exercise[];
 
-  constructor(private exerciseService: ExerciseService) { }
+  constructor(
+    private exerciseService: ExerciseService,
+    private route: ActivatedRoute,
+    private location: Location
+  ) { }
 
   ngOnInit(): void {
-    this.exercise = getExercise();
+    this.getExercise();
   }
 
-  getExercise(): Promise<Exercise> {
-    return this.exerciseService.getExerciseById(id);
+  getExercise() {
+    this.route.params
+      .switchMap((params: Params) => this.exerciseService.getExerciseById(+params['id']))
+      .subscribe((e: Exercise) => this.exercise = e);
   }
-
 }

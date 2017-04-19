@@ -16,7 +16,7 @@ export class ExerciseService {
       { id: 2, name: 'Sustantivos 1', description: "Sustantivos" },
       { id: 3, name: 'Números 1', description: ''}
   ];
-
+  private first: Exercise;
   getExcercises(): Promise<Exercise[]> {
     return Promise.resolve(this.EXER);
   }
