@@ -14,6 +14,7 @@ import 'rxjs/add/operator/switchMap';
   styleUrls: ['./question.component.css']
 })
 export class QuestionComponent implements OnInit {
+  exerciseId: number;
   exercise: Exercise;
   questions: Question[];
 
@@ -24,6 +25,9 @@ export class QuestionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.route.params
+      .subscribe((p: Params) => this.exerciseId = +p['id']);
+    console.log('param:' + this.exerciseId);
     this.getExercise();
     this.getQuestions();
   }
@@ -35,12 +39,17 @@ export class QuestionComponent implements OnInit {
   }
 
   getQuestions() {
-    if (this.exercise !== undefined) {
-      console.log("getQuestions");
-      console.log("getQuestions exerciseId:" + this.exercise.id);
-      Promise.resolve(this.exerciseService.getQuestions(this.exercise.id))
-        .then(q => this.questions = q);
+    if (this.exerciseId !== undefined) {
+      console.log("getQuestions exerciseId:" + this.exerciseId);
+      Promise.resolve(this.exerciseService.getQuestions(this.exerciseId))
+        .then(q => this.start(q));
+        //.then(q => this.questions = q);
     }
+  }
+
+  start(questions: Question[]) {
+    console.log('Starting');
+    this.questions = questions;
   }
 
 }
