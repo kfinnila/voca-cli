@@ -19,6 +19,8 @@ export class QuestionComponent implements OnInit {
   questions: Question[];
 
   selectedQuestion: Question;
+  answerWord: string;
+  answerMessage: string;
 
   constructor(
     private exerciseService: ExerciseService,
@@ -49,17 +51,27 @@ export class QuestionComponent implements OnInit {
   }
 
   start(questions: Question[]) {
-    console.log('Starting');
-    this.questions = questions;
-    
-    var qCount = this.questions.length;
-    var i = Math.floor((Math.random() * qCount));
+    this.questions = questions; 
+    this.selectNewQuestion();
+  }
+
+  selectNewQuestion() {
+    var i = Math.floor((Math.random() * this.questions.length));
     this.selectedQuestion = this.questions[i];
-    
+    this.answerWord = "";
+    //this.answerMessage = "";
   }
 
   answerClick() {
-    console.log("Respondiendo...");
+    if (this.selectedQuestion.answer === this.answerWord) {
+      this.answerMessage = "¡Correcto!";
+      this.selectNewQuestion();
+    } else if (this.selectedQuestion.answer.toUpperCase() === this.answerWord.toUpperCase()) {
+      this.answerMessage = "Correcto pero recuerde las letras mayúsculas y minúsculas";
+      this.selectNewQuestion();
+    } else {
+      this.answerMessage = "No es correcto";
+    }
   }
 
 }

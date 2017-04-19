@@ -22,7 +22,7 @@ export class ExerciseService {
     { id: 1, exerciseId: 2, question: "perro", answer: "der Hund" },
     { id: 2, exerciseId: 2, question: "gato", answer: "die Katze" },
     { id: 3, exerciseId: 2, question: "mono", answer: "der Affe" },
-    { id: 4, exerciseId: 2, question: "murciélago", answer: "die Fledermause" },
+    { id: 4, exerciseId: 2, question: "murciélago", answer: "die Fledermaus" },
     { id: 5, exerciseId: 2, question: "caballo", answer: "das Pferd" },
   ];
 

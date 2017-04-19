@@ -5,9 +5,11 @@
     <label>{{selectedQuestion.question}}</label>
   </div>
   <div>
-    <input />
+    <input [(ngModel)]="answerWord" (keyup.enter)="answerClick()" placeholder="<respuesta>" />
   </div>
+  <div>{{answerMessage}}</div>
   <button (click)="answerClick()">Aceptar</button>
+
 </div>
 <div *ngIf="questions">
   <div *ngFor="let question of questions">
