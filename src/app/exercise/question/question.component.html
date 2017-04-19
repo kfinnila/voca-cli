@@ -1,5 +1,13 @@
 <div *ngIf="exercise">
   <h3>Preguntas de ejercicio {{exercise.name}}</h3>
+  <div *ngIf="selectedQuestion">
+    <label>Pregunta:</label>
+    <label>{{selectedQuestion.question}}</label>
+  </div>
+  <div>
+    <input />
+  </div>
+  <button (click)="answerClick()">Aceptar</button>
 </div>
 <div *ngIf="questions">
   <div *ngFor="let question of questions">

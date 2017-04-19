@@ -18,6 +18,8 @@ export class QuestionComponent implements OnInit {
   exercise: Exercise;
   questions: Question[];
 
+  selectedQuestion: Question;
+
   constructor(
     private exerciseService: ExerciseService,
     private route: ActivatedRoute,
@@ -43,13 +45,21 @@ export class QuestionComponent implements OnInit {
       console.log("getQuestions exerciseId:" + this.exerciseId);
       Promise.resolve(this.exerciseService.getQuestions(this.exerciseId))
         .then(q => this.start(q));
-        //.then(q => this.questions = q);
     }
   }
 
   start(questions: Question[]) {
     console.log('Starting');
     this.questions = questions;
+    
+    var qCount = this.questions.length;
+    var i = Math.floor((Math.random() * qCount));
+    this.selectedQuestion = this.questions[i];
+    
+  }
+
+  answerClick() {
+    console.log("Respondiendo...");
   }
 
 }
