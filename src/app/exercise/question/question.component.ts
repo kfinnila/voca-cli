@@ -31,4 +31,5 @@ export class QuestionComponent implements OnInit {
       .switchMap((params: Params) => this.exerciseService.getExerciseById(+params['id']))
       .subscribe((e: Exercise) => this.exercise = e);
   }
+
 }
