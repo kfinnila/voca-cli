@@ -1,18 +1,28 @@
 <div *ngIf="exercise">
   <h3>Preguntas de ejercicio {{exercise.name}}</h3>
+  <button (click)="setMultipleChoice(false)">Simple</button>
+  <button (click)="setMultipleChoice(true)">Selección multiple</button>
   <div *ngIf="selectedQuestion">
     <label>Pregunta:</label>
     <label>{{selectedQuestion.question}}</label>
   </div>
-  <div>
+  <div *ngIf="!multipleChoice">
     <input [(ngModel)]="answerWord" (keyup.enter)="answerClick()" placeholder="<respuesta>" />
+    <button (click)="answerClick()">Aceptar</button>
+    <button (click)="help()">Ayuda</button>
+  </div>
+  <div *ngIf="multipleChoice">
+    <label (click)="answerClick(choices[0])">{{choices[0]}}</label>
+    <label (click)="answerClick(choices[1])">{{choices[1]}}</label>
+    <label (click)="answerClick(choices[2])">{{choices[2]}}</label>
   </div>
   <div>{{answerMessage}}</div>
-  <button (click)="answerClick()">Aceptar</button>
-
 </div>
+
+<!--
 <div *ngIf="questions">
   <div *ngFor="let question of questions">
     {{question.question}}--{{question.answer}}
   </div>
 </div>
+-->

@@ -22,6 +22,10 @@ export class QuestionComponent implements OnInit {
   answerWord: string;
   answerMessage: string;
 
+  //simple: boolean = true;
+  multipleChoice: boolean = false;
+  choices: string[] = [];
+
   constructor(
     private exerciseService: ExerciseService,
     private route: ActivatedRoute,
@@ -55,14 +59,29 @@ export class QuestionComponent implements OnInit {
     this.selectNewQuestion();
   }
 
-  selectNewQuestion() {
-    var i = Math.floor((Math.random() * this.questions.length));
+  selectNewQuestion() {   
+    let i = Math.floor((Math.random() * this.questions.length));
     this.selectedQuestion = this.questions[i];
     this.answerWord = "";
-    //this.answerMessage = "";
+    this.choices = [];
+    if (this.questions.length < 5) { return; };
+    if (!this.multipleChoice) { return; };
+    for (var counter = 0; counter < 3;) {
+      let qi = Math.floor((Math.random() * this.questions.length));
+      if (qi !== i) {
+        let ind = this.choices.indexOf(this.questions[qi].answer);
+        if (ind < 0) {
+          this.choices.push(this.questions[qi].answer);
+          counter++;
+        }
+      }
+    }
+    let correctIndex = Math.floor((Math.random() * 3));
+    this.choices[correctIndex] = this.selectedQuestion.answer;
   }
 
-  answerClick() {
+  answerClick(choice: string = this.answerWord) {
+    this.answerWord = choice;
     if (this.selectedQuestion.answer === this.answerWord) {
       this.answerMessage = "¡Correcto!";
       this.selectNewQuestion();
@@ -72,6 +91,15 @@ export class QuestionComponent implements OnInit {
     } else {
       this.answerMessage = "No es correcto";
     }
+  }
+
+  help() {
+    alert('La respuesta es "' + this.selectedQuestion.answer + '"' );
+  }
+
+  setMultipleChoice(selection: boolean) {
+    this.multipleChoice = selection;
+    this.selectNewQuestion();
   }
 
 }
