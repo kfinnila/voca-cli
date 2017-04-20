@@ -11,6 +11,7 @@ import { ExerciseComponent } from './exercise/exercise/exercise.component';
 
 import { ExerciseService } from './shared/exercise.service';
 import { QuestionComponent } from './exercise/question/question.component';
+import { WordListComponent } from './exercise/exercise/study/word-list/word-list.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { QuestionComponent } from './exercise/question/question.component';
     AboutComponent,
     MenuComponent,
     ExerciseComponent,
-    QuestionComponent
+    QuestionComponent,
+    WordListComponent
   ],
   imports: [
     BrowserModule,

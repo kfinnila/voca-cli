@@ -2,9 +2,13 @@
 <div>
   <ul>
     <li *ngFor="let exercise of exercises"
-      (click)="gotoQuestion(exercise)"
+      
     >
-    <span>{{exercise.name}}</span>
+      <span>{{exercise.name}}</span>
+      <button (click)="showWordList(exercise.id)">Show</button>
     </li>
   </ul>
+</div>
+<div *ngIf="exerciseId">
+  <app-word-list [exerciseId]="exerciseId"></app-word-list>
 </div>
