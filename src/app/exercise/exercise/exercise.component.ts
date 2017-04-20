@@ -34,6 +34,7 @@ export class ExerciseComponent implements OnInit {
   }
 
   showWordList(exerciseId: number) {
+    this.exerciseId = null;
     this.exerciseId = exerciseId;
     console.log("showWordList:" + exerciseId);
   }

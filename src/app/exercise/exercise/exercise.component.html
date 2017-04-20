@@ -1,11 +1,18 @@
 <h2>Ejercicios</h2>
 <div>
+  <select [(ngModel)]="exercise" (ngModelChange)="showWordList(exercise.id)" >
+    <option value="" disabled>Seleccione ejercicio</option>
+    <option *ngFor="let exercise of exercises" [ngValue]="exercise">
+      {{ exercise.name }}
+    </option>
+  </select>
+</div>
+<div>
   <ul>
-    <li *ngFor="let exercise of exercises"
-      
-    >
+    <li *ngFor="let exercise of exercises">
       <span>{{exercise.name}}</span>
-      <button (click)="showWordList(exercise.id)">Show</button>
+      <button (click)="gotoQuestion(exercise)">Preguntar</button>
+      <button (click)="showWordList(exercise.id); $event.stopPropagation()">Ver</button>
     </li>
   </ul>
 </div>
