@@ -1,22 +1,32 @@
-<div *ngIf="exercise">
-  <h3>Preguntas de ejercicio {{exercise.name}}</h3>
-  <button (click)="setMultipleChoice(false)">Simple</button>
-  <button (click)="setMultipleChoice(true)">Selección multiple</button>
-  <div *ngIf="selectedQuestion">
-    <label>Pregunta:</label>
-    <label>{{selectedQuestion.question}}</label>
+<div>
+  <h3>Ejercicios</h3>
+  <div>
+    <select [(ngModel)]="exerciseId" (ngModelChange)="getExercise()" >
+      <option value="" disabled>Seleccione ejercicio</option>
+      <option *ngFor="let exercise of exercises" [ngValue]="exercise.id">
+        {{ exercise.name }}
+      </option>
+    </select>
   </div>
-  <div *ngIf="!multipleChoice">
-    <input [(ngModel)]="answerWord" (keyup.enter)="answerClick()" placeholder="<respuesta>" />
-    <button (click)="answerClick()">Aceptar</button>
-    <button (click)="help()">Ayuda</button>
+  <div *ngIf="exercise">
+    <button (click)="setMultipleChoice(false)">Simple</button>
+    <button (click)="setMultipleChoice(true)">Selección multiple</button>
+    <div *ngIf="selectedQuestion">
+      <label>Pregunta:</label>
+      <label>{{selectedQuestion.question}}</label>
+    </div>
+    <div *ngIf="!multipleChoice">
+      <input [(ngModel)]="answerWord" (keyup.enter)="answerClick()" placeholder="<respuesta>" />
+      <button (click)="answerClick()">Aceptar</button>
+      <button (click)="help()">Ayuda</button>
+    </div>
+    <div *ngIf="multipleChoice">
+      <label (click)="answerClick(choices[0])">{{choices[0]}}</label>
+      <label (click)="answerClick(choices[1])">{{choices[1]}}</label>
+      <label (click)="answerClick(choices[2])">{{choices[2]}}</label>
+    </div>
+    <div>{{answerMessage}}</div>
   </div>
-  <div *ngIf="multipleChoice">
-    <label (click)="answerClick(choices[0])">{{choices[0]}}</label>
-    <label (click)="answerClick(choices[1])">{{choices[1]}}</label>
-    <label (click)="answerClick(choices[2])">{{choices[2]}}</label>
-  </div>
-  <div>{{answerMessage}}</div>
 </div>
 
 <!--

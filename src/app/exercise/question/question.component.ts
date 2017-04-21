@@ -16,6 +16,7 @@ import 'rxjs/add/operator/switchMap';
 export class QuestionComponent implements OnInit {
   exerciseId: number;
   exercise: Exercise;
+  exercises: Exercise[];
   questions: Question[];
 
   selectedQuestion: Question;
@@ -36,14 +37,25 @@ export class QuestionComponent implements OnInit {
     this.route.params
       .subscribe((p: Params) => this.exerciseId = +p['id']);
     console.log('param:' + this.exerciseId);
-    this.getExercise();
-    this.getQuestions();
+    this.getExercises();
+    if (this.exerciseId) {
+      this.getExercise();
+      this.getQuestions();
+    }
+  }
+
+  getExercises(): void {
+    this.exerciseService.getExcercises().then(e => this.exercises = e);
   }
 
   getExercise() {
+    Promise.resolve(this.exerciseService.getExerciseById(this.exerciseId))
+      .then(e => this.exercise =e);
+    this.getQuestions();
+    /*
     this.route.params
       .switchMap((params: Params) => this.exerciseService.getExerciseById(+params['id']))
-      .subscribe((e: Exercise) => this.exercise = e);
+      .subscribe((e: Exercise) => this.exercise = e);*/
   }
 
   getQuestions() {
