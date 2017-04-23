@@ -10,16 +10,16 @@ body{
 
 .container{
   width:80%;
-  margin:auto;
+  margin: 0 auto;
   overflow: hidden;
   /*display: flex;
   justify-content: center;*/
 }
 
 .container2 {
-  width:500px;
+  width:100%;
   margin: 0 auto;
-
+  text-align: center;
 }
 
 .button_1{
@@ -83,6 +83,15 @@ header a:hover{
 }
 
 
+footer {
+  padding: 20px;
+  margin-top: 20px;
+  color: #ffffff;
+  background-color: #e8491d;
+  text-align: center;
+}
+
+
 .select-box select {
    border: 0;
    color: #330033;
@@ -110,6 +119,7 @@ header a:hover{
 
 .sel-container {
   display: inline-block;
+  margin: 0 auto;
 }
 
 .select-box{
@@ -117,7 +127,7 @@ header a:hover{
 }
 
 .button_1{
-  float: right;
+  float: left;
   margin-left: 10px;
 }
 
@@ -138,7 +148,7 @@ th {
 
 td {
   text-align: left;
-  padding: 5px 50px 5px 5px;
+  padding: 5px 30px 5px 20px;
   font-size: 20px;
 }
 
@@ -156,4 +166,18 @@ tr:nth-child(odd) {
 
 tr:nth-child(even) {
   background-color: lightyellow;
+}
+
+@media(max-width: 768px) {
+  h1 {
+    font-size: 15px;
+  }
+
+  th, td {
+    font-size: 12px;
+  }
+
+  header a {
+    font-size: 12px;
+  }
 }
