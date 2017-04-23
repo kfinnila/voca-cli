@@ -1,23 +1,26 @@
 <div class="container">
-  <h2>Ejercicios</h2>
-  <div class="select-box">
-    <select [(ngModel)]="exercise" (ngModelChange)="showWordList(exercise.id)" >
-      <option value="" disabled>Seleccione ejercicio</option>
-      <option *ngFor="let exercise of exercises" [ngValue]="exercise">
-        {{ exercise.name }}
-      </option>
-    </select>
-  </div>
-  <div>
-    <ul>
-      <li *ngFor="let exercise of exercises">
-        <span>{{exercise.name}}</span>
-        <button (click)="gotoQuestion(exercise)">Preguntar</button>
-        <button (click)="showWordList(exercise.id); $event.stopPropagation()">Ver</button>
-      </li>
-    </ul>
-  </div>
+
+    <h2>Ejercicios</h2>
+    <div class="container2">
+        <div class="sel-container">
+          <div class="select-box">
+
+              <select [(ngModel)]="exercise" (ngModelChange)="showWordList(exercise.id)" >
+                <option value="" disabled>Seleccione ejercicio</option>
+                <option *ngFor="let exercise of exercises" [ngValue]="exercise">
+                  {{ exercise.name }}
+                </option>
+              </select>
+
+          </div>
+
+  
+        <button (click)="gotoQuestion(exercise)" class="button_1">Preguntar</button>
+        </div>
+    </div>
+
   <div *ngIf="exerciseId">
     <app-word-list [exerciseId]="exerciseId"></app-word-list>
   </div>
+
 </div>

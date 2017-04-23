@@ -1,5 +1,12 @@
-<div *ngIf="words">
-  <div *ngFor="let word of words">
-    <label>{{word.question}}</label>--<label>{{word.answer}}</label>
-  </div>
-</div>
+
+  <table *ngIf="words">
+    <th class="left-column">Pregunta</th>
+    <th class="right-column">Respuesta</th>
+    <tbody>
+        <tr *ngFor="let word of words">
+          <td class="left-column"><label class="pregunta">{{word.question}}</label></td>
+          <td class="right-column"><label class="respuesta">{{word.answer}}</label></td>
+        </tr>
+    </tbody>
+  </table>
+
