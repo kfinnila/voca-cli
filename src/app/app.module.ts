@@ -12,6 +12,7 @@ import { ExerciseComponent } from './exercise/exercise/exercise.component';
 import { ExerciseService } from './shared/exercise.service';
 import { QuestionComponent } from './exercise/question/question.component';
 import { WordListComponent } from './exercise/exercise/study/word-list/word-list.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { WordListComponent } from './exercise/exercise/study/word-list/word-list
     MenuComponent,
     ExerciseComponent,
     QuestionComponent,
-    WordListComponent
+    WordListComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
