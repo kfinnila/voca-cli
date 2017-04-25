@@ -27,6 +27,9 @@ export class QuestionComponent implements OnInit {
   multipleChoice: boolean = false;
   choices: string[] = [];
 
+  tryAnswer: boolean[] = [false, false, false];
+  correctAnswer: boolean = false;
+
   constructor(
     private exerciseService: ExerciseService,
     private route: ActivatedRoute,
@@ -76,6 +79,7 @@ export class QuestionComponent implements OnInit {
     this.selectedQuestion = this.questions[i];
     this.answerWord = "";
     this.choices = [];
+    this.tryAnswer = [false, false, false];
     if (this.questions.length < 5) { return; };
     if (!this.multipleChoice) { return; };
     for (var counter = 0; counter < 3;) {
@@ -96,12 +100,25 @@ export class QuestionComponent implements OnInit {
     this.answerWord = choice;
     if (this.selectedQuestion.answer === this.answerWord) {
       this.answerMessage = "¡Correcto!";
+      this.correctAnswer = true;
+      setTimeout(() => { 
+        this.correctAnswer = false;
+        this.answerMessage = " "; }, 2000)
       this.selectNewQuestion();
     } else if (this.selectedQuestion.answer.toUpperCase() === this.answerWord.toUpperCase()) {
       this.answerMessage = "Correcto pero recuerde las letras mayúsculas y minúsculas";
+      this.correctAnswer = true;
+      setTimeout(() => { 
+        this.correctAnswer = false;
+        this.answerMessage = " "; }, 2000)
       this.selectNewQuestion();
     } else {
       this.answerMessage = "No es correcto";
+      for (let i = 0; i < this.choices.length; i++){
+        if (this.choices[i] === choice) {
+          this.tryAnswer[i] = true;
+        }
+      }
     }
   }
 

@@ -1,0 +1,93 @@
+h3 {
+  text-align: center;
+}
+
+input {
+  text-align: center;
+  border: none;
+}
+
+button {
+  background-color: greenyellow;
+}
+
+.question {
+  background-color: lightgreen;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  margin: 5px;
+  min-width: 120px;
+  display: inline-block;
+}
+
+.answer {
+  background-color: lightskyblue;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  margin: 20px;
+}
+
+#qlabel {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.box {
+  float: left;
+  text-align: center;
+  width: 100%;
+  padding: 10px;
+}
+
+#multichoice {
+  margin-top: 20px;
+}
+
+.multi {
+  width: 30%;
+  margin: 5px;
+}
+
+.selected {
+  background-color: greenyellow;
+  font-weight: bolder;
+}
+
+.wrong-answer {
+  background-color: red;
+}
+
+.correct-answer {
+  background-color: green;
+}
+
+.wrong-answer2 {
+  color: red;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.correct-answer2 {
+  color: green;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.hide {
+  opacity: 0;
+  transition:  opacity 2s linear;
+}
+
+.show {
+  opacity: 1;
+}
+
+@media(max-width: 768px) {
+  .multi {
+    float: left;
+  }
+}
