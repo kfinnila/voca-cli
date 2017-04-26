@@ -13,6 +13,7 @@ import { ExerciseService } from './shared/exercise.service';
 import { QuestionComponent } from './exercise/question/question.component';
 import { WordListComponent } from './exercise/exercise/study/word-list/word-list.component';
 import { HomeComponent } from './home/home.component';
+import { UserComponent } from './shared/user/user.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { HomeComponent } from './home/home.component';
     ExerciseComponent,
     QuestionComponent,
     WordListComponent,
-    HomeComponent
+    HomeComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
