@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { Exercise } from '../../models/exercise';
-import { Question } from '../../models/question';
-import { ExerciseService } from '../../shared/exercise.service';
+import { Exercise } from 'app/models/exercise';
+import { Question } from 'app/models/question';
+import { ExerciseService } from 'app/shared/exercise.service';
 
 import 'rxjs/add/operator/switchMap';
 

@@ -1,0 +1,20 @@
+div, span, input, button {
+  font-size: x-small;
+}
+
+input {
+  width: 50px;
+}
+
+button {
+  width: 50px;
+  height: 20px;
+  padding: 5px;
+  background-color: blue;
+  color: white;
+}
+
+.tooltip .tooltiptext {
+    top: -5px;
+    right: 105%; 
+}

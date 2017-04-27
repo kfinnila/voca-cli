@@ -1,1 +1,9 @@
-Usuario: {{ userName }}
+
+<span *ngIf="!isSetting" (click)="showUsername()" class="tooltip">
+  <span class="tooltiptext">Haga click para cambiar usuario</span>
+  Usuario: {{ username }}
+</span>
+<div *ngIf="isSetting">
+  Usuario: <input [(ngModel)]="username" (keyup.enter)="setUsername()">
+  <button (click)="setUsername()">Aceptar</button>
+</div>

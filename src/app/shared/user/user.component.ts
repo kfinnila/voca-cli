@@ -6,17 +6,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  userName: string;
+  username: string;
+  isSetting: boolean = false;
 
   constructor() { }
 
   ngOnInit() {
-    this.userName = localStorage.userName;
-    console.log("userName: ", this.userName);
-    if (this.userName == null) {
-      this.userName = 'Anónimo';
-      localStorage.setItem('userName', this.userName);
+    this.username = localStorage.username;
+    console.log("username: ", this.username);
+    if (this.username == null) {
+      this.username = 'Anónimo';
+      localStorage.setItem('username', this.username);
     }
   }
 
+  showUsername() {
+    this.isSetting = true;
+  }
+
+  setUsername() {
+    localStorage.setItem('username', this.username);
+    this.isSetting = false;
+  }
 }
