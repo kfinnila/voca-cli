@@ -19,6 +19,7 @@ export class QuestionComponent implements OnInit {
   exercises: Exercise[];
   questions: Question[];
 
+
   selectedQuestion: Question;
   answerWord: string;
   answerMessage: string;
@@ -40,6 +41,9 @@ export class QuestionComponent implements OnInit {
     this.route.params
       .subscribe((p: Params) => this.exerciseId = +p['id']);
     console.log('param:' + this.exerciseId);
+    if (isNaN(this.exerciseId)) {
+      this.exerciseId = 0;
+    }
     this.getExercises();
     if (this.exerciseId) {
       this.getExercise();

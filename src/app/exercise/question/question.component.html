@@ -7,7 +7,7 @@
     <div class="sel-container">
       <div class="select-box">
         <select [(ngModel)]="exerciseId" (ngModelChange)="getExercise()" >
-          <option value="" disabled>Seleccione ejercicio</option>
+          <option value="0" disabled>Seleccione ejercicio</option>
           <option *ngFor="let exercise of exercises" [ngValue]="exercise.id">
             {{ exercise.name }}
           </option>

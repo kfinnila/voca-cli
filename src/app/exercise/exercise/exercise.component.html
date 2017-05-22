@@ -1,24 +1,23 @@
 <div class="container">
 
     <h2>Ejercicios</h2>
-    <div *ngIf="!exerciseId" class="container2">
+    <div *ngIf="exerciseId===0" class="container2">
       <h5>Seleccione el ejercicio para empezar:</h5>
     </div>
     <div class="container2">
         <div class="sel-container">
           <div class="select-box">
 
-              <select [(ngModel)]="exercise" (ngModelChange)="showWordList(exercise.id)" >
-                <option value="" disabled>Seleccione ejercicio</option>
-                <option *ngFor="let exercise of exercises" [ngValue]="exercise">
+              <select [(ngModel)]="exerciseId" (ngModelChange)="showWordList(exerciseId)" >
+                <option value="0" disabled>Seleccione ejercicio</option>
+                <option *ngFor="let exercise of exercises" [ngValue]="exercise.id">
                   {{ exercise.name }}
                 </option>
               </select>
 
           </div>
-
   
-        <button (click)="gotoQuestion(exercise)" class="button_1">Preguntar</button>
+        <button (click)="gotoQuestion(exerciseId)" class="button_1">Preguntar</button>
         </div>
     </div>
 

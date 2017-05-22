@@ -13,7 +13,8 @@ import { WordListComponent } from './study/word-list/word-list.component';
 export class ExerciseComponent implements OnInit {
   exercises: Exercise[];
   selectedExercise: Exercise;
-  exerciseId: number;
+  exerciseId: number = 0;
+  exercise: Exercise;
 
   constructor(
     private exerciseService: ExerciseService,
@@ -28,9 +29,12 @@ export class ExerciseComponent implements OnInit {
     this.exerciseService.getExcercises().then(e => this.exercises = e);
   }
 
-  gotoQuestion(exercise: Exercise) {
-    this.selectedExercise = exercise;
-    this.router.navigate(['/question', this.selectedExercise.id]);
+  //gotoQuestion(exercise: Exercise) {
+  gotoQuestion(exerciseId: number) {
+    console.log("exerciseId: " + exerciseId);
+    //this.selectedExercise = exercise;
+    //this.router.navigate(['/question', this.selectedExercise.id]);
+    this.router.navigate(['/question', exerciseId]);
   }
 
   showWordList(exerciseId: number) {
