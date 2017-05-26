@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { Headers, Http, Response } from '@angular/http';
 
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 import { Exercise } from '../models/exercise';
 import { Question } from '../models/question';
 
 @Injectable()
 export class ExerciseService {
-  //private exerciseUrl = 'api/exercises';
+  private exerciseUrl = 'http://vocalnicservice.azurewebsites.net/api/Exercise/';
 
   constructor(private http: Http) {}
-
+  /*
   private EXER: Exercise[] = [
       { id: 1, name: 'Verbos 1', description: "Verbos" },
       { id: 2, name: 'Sustantivos 1', description: "Sustantivos" },
@@ -21,6 +24,7 @@ export class ExerciseService {
       { id: 6, name: 'Mate - Cálculo diferencial', description: "Cálculo difrencial" },
       { id: 7, name: 'Mate - General', description: "" }
   ];
+  */
 
   private QUESTION: Question[] = [
     { id: 1, exerciseId: 1, question: "comer", answer: "essen" },
@@ -88,15 +92,52 @@ export class ExerciseService {
 
   ];
 
+  /*
   getExcercises(): Promise<Exercise[]> {
     return Promise.resolve(this.EXER);
   }
+  */
 
+  getExercises(): Observable<Exercise[]> {
+    console.log("url" + this.exerciseUrl);
+    return this.http.get(this.exerciseUrl)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
+  /*
   getExerciseById(id: number): Promise<Exercise> {
-    return Promise.resolve(this.EXER.find(e => e.id === id));
+    return Promise.resolve(this.getExercises().find(e => e.id === id));
+  }
+  */
+
+  getExerciseById(id: number): Observable<Exercise> {
+    return this.http.get(this.exerciseUrl + id.toString())
+                    .map(this.extractData)
+                    .catch(this.handleError);
   }
 
   getQuestions(id: number): Promise<Question[]> {
     return Promise.resolve(this.QUESTION.filter(a => a.exerciseId === id));
+  }
+
+  private extractData(res: Response) {
+    console.log("Extracting" + res.toString());
+    let body = res.json();
+    return body || { };
+  }
+
+  private handleError (error: Response | any) {
+    // In a real world app, you might use a remote logging infrastructure
+    let errMsg: string;
+    if (error instanceof Response) {
+      const body = error.json() || '';
+      const err = body.error || JSON.stringify(body);
+      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    } else {
+      errMsg = error.message ? error.message : error.toString();
+    }
+    console.error(errMsg);
+    return Observable.throw(errMsg);
   }
 }

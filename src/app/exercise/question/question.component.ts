@@ -52,12 +52,13 @@ export class QuestionComponent implements OnInit {
   }
 
   getExercises(): void {
-    this.exerciseService.getExcercises().then(e => this.exercises = e);
+    //this.exerciseService.getExcercises().then(e => this.exercises = e);
+    this.exerciseService.getExercises().subscribe(e => this.exercises = e);
   }
 
   getExercise() {
-    Promise.resolve(this.exerciseService.getExerciseById(this.exerciseId))
-      .then(e => this.exercise =e);
+    //Promise.resolve(this.exerciseService.getExerciseById(this.exerciseId)).then(e => this.exercise =e);
+    Promise.resolve(this.exerciseService.getExerciseById(this.exerciseId).subscribe(e => this.exercise = e));
     this.getQuestions();
     /*
     this.route.params

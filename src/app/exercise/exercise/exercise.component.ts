@@ -11,6 +11,7 @@ import { WordListComponent } from './study/word-list/word-list.component';
   styleUrls: ['./exercise.component.css']
 })
 export class ExerciseComponent implements OnInit {
+  errorMessage: string;
   exercises: Exercise[];
   selectedExercise: Exercise;
   exerciseId: number = 0;
@@ -26,7 +27,8 @@ export class ExerciseComponent implements OnInit {
   }
 
   getExercises(): void {
-    this.exerciseService.getExcercises().then(e => this.exercises = e);
+    //this.exerciseService.getExcercises().then(e => this.exercises = e);
+    this.exerciseService.getExercises().subscribe(exercises => this.exercises = exercises, error => this.errorMessage = <any>error );
   }
 
   //gotoQuestion(exercise: Exercise) {
