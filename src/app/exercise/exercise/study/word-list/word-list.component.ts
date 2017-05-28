@@ -28,8 +28,8 @@ export class WordListComponent implements OnInit, OnChanges {
   }
 
   getQuestions() {
-    Promise.resolve(this.exerciseService.getQuestions(this.exerciseId))
-      .then(q => this.words = q);
+    Promise.resolve(this.exerciseService.getQuestions(this.exerciseId).subscribe(q => this.words = q));
+      //.then(q => this.words = q);
   }
 }
 

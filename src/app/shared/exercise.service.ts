@@ -12,6 +12,7 @@ import { Question } from '../models/question';
 @Injectable()
 export class ExerciseService {
   private exerciseUrl = 'http://vocalnicservice.azurewebsites.net/api/Exercise/';
+  private questionUrl = 'http://vocalnicservice.azurewebsites.net/api/Question/';
 
   constructor(private http: Http) {}
   /*
@@ -25,7 +26,7 @@ export class ExerciseService {
       { id: 7, name: 'Mate - General', description: "" }
   ];
   */
-
+  /*
   private QUESTION: Question[] = [
     { id: 1, exerciseId: 1, question: "comer", answer: "essen" },
     { id: 2, exerciseId: 1, question: "hablar", answer: "sprachen" },
@@ -91,7 +92,7 @@ export class ExerciseService {
 
 
   ];
-
+*/
   /*
   getExcercises(): Promise<Exercise[]> {
     return Promise.resolve(this.EXER);
@@ -100,9 +101,11 @@ export class ExerciseService {
 
   getExercises(): Observable<Exercise[]> {
     console.log("url" + this.exerciseUrl);
-    return this.http.get(this.exerciseUrl)
+    let res = this.http.get(this.exerciseUrl)
                     .map(this.extractData)
                     .catch(this.handleError);
+
+    return res;
   }
 
   /*
@@ -117,13 +120,21 @@ export class ExerciseService {
                     .catch(this.handleError);
   }
 
-  getQuestions(id: number): Promise<Question[]> {
-    return Promise.resolve(this.QUESTION.filter(a => a.exerciseId === id));
+  //getQuestions(id: number): Promise<Question[]> {
+  //  return Promise.resolve(this.QUESTION.filter(a => a.exerciseId === id));
+  //}
+
+
+  getQuestions(id: number): Observable<Question[]> {
+    return this.http.get(this.questionUrl + id.toString())
+                    .map(this.extractData)
+                    .catch(this.handleError);
   }
 
   private extractData(res: Response) {
     console.log("Extracting" + res.toString());
     let body = res.json();
+    console.log("body: " + body.toString());
     return body || { };
   }
 

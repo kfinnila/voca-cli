@@ -26,35 +26,37 @@
         >Selección multiple
       </button>
     </div>
-    <div *ngIf="selectedQuestion" class="box">
-      <label id="qlabel">Pregunta</label>
-    </div>
-    <div class="box">
-      <label class="question">{{selectedQuestion.question}}</label>
-    </div>
-    <div *ngIf="!multipleChoice" class="box">
-      <input [(ngModel)]="answerWord" (keyup.enter)="answerClick()" 
-        placeholder="<escriba respuesta>" class="answer" />
-      <div class="box">
-        <button (click)="answerClick()">Aceptar</button>
-        <button (click)="help()">Ayuda</button>
+    <div *ngIf="selectedQuestion">
+      <div *ngIf="selectedQuestion" class="box">
+        <label id="qlabel">Pregunta</label>
       </div>
-    </div>
-    <div *ngIf="multipleChoice" id="multichoice" class="box">
-      <label (click)="answerClick(choices[0])" class="answer multi"
-        [class.wrong-answer]="tryAnswer[0]">{{choices[0]}}</label>
-      <label (click)="answerClick(choices[1])" class="answer multi"
-        [class.wrong-answer]="tryAnswer[1]">{{choices[1]}}</label>
-      <label (click)="answerClick(choices[2])" class="answer multi"
-        [class.wrong-answer]="tryAnswer[2]">{{choices[2]}}</label>
-    </div>
-    <div class="container">
-      <div class="box" 
-        [class.show]="!correctAnswer" 
-        [class.hide]="correctAnswer"
-        [class.wrong-answer2]="!correctAnswer" 
-        [class.correct-answer2]="correctAnswer">
-        {{answerMessage}}
+      <div class="box">
+        <label class="question">{{selectedQuestion.question}}</label>
+      </div>
+      <div *ngIf="!multipleChoice" class="box">
+        <input [(ngModel)]="answerWord" (keyup.enter)="answerClick()" 
+          placeholder="<escriba respuesta>" class="answer" />
+        <div class="box">
+          <button (click)="answerClick()">Aceptar</button>
+          <button (click)="help()">Ayuda</button>
+        </div>
+      </div>
+      <div *ngIf="multipleChoice" id="multichoice" class="box">
+        <label (click)="answerClick(choices[0])" class="answer multi"
+          [class.wrong-answer]="tryAnswer[0]">{{choices[0]}}</label>
+        <label (click)="answerClick(choices[1])" class="answer multi"
+          [class.wrong-answer]="tryAnswer[1]">{{choices[1]}}</label>
+        <label (click)="answerClick(choices[2])" class="answer multi"
+          [class.wrong-answer]="tryAnswer[2]">{{choices[2]}}</label>
+      </div>
+      <div class="container">
+        <div class="box" 
+          [class.show]="!correctAnswer" 
+          [class.hide]="correctAnswer"
+          [class.wrong-answer2]="!correctAnswer" 
+          [class.correct-answer2]="correctAnswer">
+          {{answerMessage}}
+        </div>
       </div>
     </div>
   </div>

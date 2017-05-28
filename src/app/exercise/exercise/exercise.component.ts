@@ -29,6 +29,7 @@ export class ExerciseComponent implements OnInit {
   getExercises(): void {
     //this.exerciseService.getExcercises().then(e => this.exercises = e);
     this.exerciseService.getExercises().subscribe(exercises => this.exercises = exercises, error => this.errorMessage = <any>error );
+    console.log("Error:" + this.errorMessage);
   }
 
   //gotoQuestion(exercise: Exercise) {
