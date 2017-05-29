@@ -22,7 +22,6 @@ export class QuestionComponent implements OnInit {
   exercises: Exercise[];
   questions: Question[];
 
-
   selectedQuestion: Question;
   answerWord: string;
   answerMessage: string;
