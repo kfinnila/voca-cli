@@ -27,6 +27,9 @@ export class QuestionComponent implements OnInit {
   answerWord: string;
   answerMessage: string;
 
+  correctAnswers: number = 0;
+  incorrectAnswers: number = 0;
+
   //simple: boolean = true;
   multipleChoice: boolean = false;
   choices: string[] = [];
@@ -106,6 +109,7 @@ export class QuestionComponent implements OnInit {
     if (this.selectedQuestion.answer === this.answerWord) {
       this.answerMessage = "¡Correcto!";
       this.correctAnswer = true;
+      this.correctAnswers++;
       setTimeout(() => { 
         this.correctAnswer = false;
         this.answerMessage = " "; }, 2000)
@@ -113,12 +117,14 @@ export class QuestionComponent implements OnInit {
     } else if (this.selectedQuestion.answer.toUpperCase() === this.answerWord.toUpperCase()) {
       this.answerMessage = "Correcto pero recuerde las letras mayúsculas y minúsculas";
       this.correctAnswer = true;
+      this.correctAnswers++;
       setTimeout(() => { 
         this.correctAnswer = false;
         this.answerMessage = " "; }, 2000)
       this.selectNewQuestion();
     } else {
       this.answerMessage = "No es correcto";
+      this.incorrectAnswers++;
       for (let i = 0; i < this.choices.length; i++){
         if (this.choices[i] === choice) {
           this.tryAnswer[i] = true;
