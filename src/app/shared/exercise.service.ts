@@ -100,7 +100,7 @@ export class ExerciseService {
   */
 
   getExercises(): Observable<Exercise[]> {
-    console.log("url" + this.exerciseUrl);
+    //console.log("url" + this.exerciseUrl);
     let res = this.http.get(this.exerciseUrl)
                     .map(this.extractData)
                     .catch(this.handleError);
@@ -132,9 +132,9 @@ export class ExerciseService {
   }
 
   private extractData(res: Response) {
-    console.log("Extracting" + res.toString());
+    //console.log("Extracting" + res.toString());
     let body = res.json();
-    console.log("body: " + body.toString());
+    //console.log("body: " + body.toString());
     return body || { };
   }
 
@@ -148,7 +148,7 @@ export class ExerciseService {
     } else {
       errMsg = error.message ? error.message : error.toString();
     }
-    console.error(errMsg);
+    //console.error(errMsg);
     return Observable.throw(errMsg);
   }
 }

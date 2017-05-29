@@ -29,12 +29,12 @@ export class ExerciseComponent implements OnInit {
   getExercises(): void {
     //this.exerciseService.getExcercises().then(e => this.exercises = e);
     this.exerciseService.getExercises().subscribe(exercises => this.exercises = exercises, error => this.errorMessage = <any>error );
-    console.log("Error:" + this.errorMessage);
+    //console.log("Error:" + this.errorMessage);
   }
 
   //gotoQuestion(exercise: Exercise) {
   gotoQuestion(exerciseId: number) {
-    console.log("exerciseId: " + exerciseId);
+    //console.log("exerciseId: " + exerciseId);
     //this.selectedExercise = exercise;
     //this.router.navigate(['/question', this.selectedExercise.id]);
     this.router.navigate(['/question', exerciseId]);
@@ -43,7 +43,7 @@ export class ExerciseComponent implements OnInit {
   showWordList(exerciseId: number) {
     this.exerciseId = null;
     this.exerciseId = exerciseId;
-    console.log("showWordList:" + exerciseId);
+    //console.log("showWordList:" + exerciseId);
   }
 
 }

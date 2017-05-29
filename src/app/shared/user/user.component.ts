@@ -13,7 +13,7 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     this.username = localStorage.username;
-    console.log("username: ", this.username);
+    //console.log("username: ", this.username);
     if (this.username == null) {
       this.username = 'Anónimo';
       localStorage.setItem('username', this.username);
