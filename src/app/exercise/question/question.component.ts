@@ -4,12 +4,22 @@ import { Location } from '@angular/common';
 
 import { Exercise } from 'app/models/exercise';
 import { Question } from 'app/models/question';
+import { Stat } from 'app/models/stats';
 import { ExerciseService } from 'app/shared/exercise.service';
+import { StatService } from 'app/shared/stat.service';
 
 //import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 //import 'rxjs/add/operator/concatMap';
 //import 'rxjs/add/operator/mergeMap';
+
+class RemaininQuestion {
+  constructor(i: number) {
+    this.id = i;
+    this.correct = 0;
+    this.wrong = 0;
+  }
+  id: number; correct: number; wrong: number }
 
 @Component({
   selector: 'app-question',
@@ -22,12 +32,18 @@ export class QuestionComponent implements OnInit {
   exercises: Exercise[];
   questions: Question[];
 
+  userStat: Stat;
+
   selectedQuestion: Question;
   answerWord: string;
   answerMessage: string;
 
   correctAnswers: number = 0;
   incorrectAnswers: number = 0;
+  maxQuestionAnswers: number;
+  correctQuestionAnswers: number;
+  
+  remainingQuestions: RemaininQuestion[] = [];
 
   //simple: boolean = true;
   multipleChoice: boolean = false;
@@ -38,6 +54,7 @@ export class QuestionComponent implements OnInit {
 
   constructor(
     private exerciseService: ExerciseService,
+    private statService: StatService,
     private route: ActivatedRoute,
     private location: Location
   ) { }
@@ -78,12 +95,25 @@ export class QuestionComponent implements OnInit {
 
   start(questions: Question[]) {
     this.questions = questions; 
+    this.setRemainingQuestions();
     this.selectNewQuestion();
   }
 
+  setRemainingQuestions() {
+    this.remainingQuestions = [];
+    this.questions.forEach((q) => {
+      let rq = new RemaininQuestion(q.id);
+      this.remainingQuestions.push(rq);
+    });
+    this.maxQuestionAnswers = this.questions.length * 3;
+    this.correctQuestionAnswers = 0;
+  }
+
   selectNewQuestion() {   
-    let i = Math.floor((Math.random() * this.questions.length));
-    this.selectedQuestion = this.questions[i];
+    //let i = Math.floor((Math.random() * this.questions.length));
+    let i = Math.floor((Math.random() * this.remainingQuestions.length));
+
+    this.selectedQuestion = this.questions.find(a => a.id === this.remainingQuestions[i].id);;
     this.answerWord = "";
     this.choices = [];
     this.tryAnswer = [false, false, false];
@@ -104,26 +134,25 @@ export class QuestionComponent implements OnInit {
   }
 
   answerClick(choice: string = this.answerWord) {
+    choice = choice.replace('ss', 'ß');
     this.answerWord = choice;
     if (this.selectedQuestion.answer === this.answerWord) {
-      this.answerMessage = "¡Correcto!";
-      this.correctAnswer = true;
+      // correct answer
       this.correctAnswers++;
-      setTimeout(() => { 
-        this.correctAnswer = false;
-        this.answerMessage = " "; }, 2000)
+      this.showMessage("¡Correcto!", 2000);
+      this.evaluateAnswer(this.selectedQuestion.id, true);
       this.selectNewQuestion();
     } else if (this.selectedQuestion.answer.toUpperCase() === this.answerWord.toUpperCase()) {
-      this.answerMessage = "Correcto pero recuerde las letras mayúsculas y minúsculas";
-      this.correctAnswer = true;
+      // correct answer but wrong casing
       this.correctAnswers++;
-      setTimeout(() => { 
-        this.correctAnswer = false;
-        this.answerMessage = " "; }, 2000)
+      this.showMessage("Correcto pero recuerde las letras mayúsculas y minúsculas", 2000);
+      this.evaluateAnswer(this.selectedQuestion.id, true);
       this.selectNewQuestion();
     } else {
+      // wrong answer
       this.answerMessage = "No es correcto";
       this.incorrectAnswers++;
+      this.evaluateAnswer(this.selectedQuestion.id, false);
       for (let i = 0; i < this.choices.length; i++){
         if (this.choices[i] === choice) {
           this.tryAnswer[i] = true;
@@ -141,4 +170,39 @@ export class QuestionComponent implements OnInit {
     this.selectNewQuestion();
   }
 
+  showMessage(message: string, time: number) {
+      this.answerMessage = message;
+      this.correctAnswer = true;
+      setTimeout(() => { 
+        this.correctAnswer = false;
+        this.answerMessage = " "; }, time)
+  }
+
+  evaluateAnswer(id:number, correct: boolean): boolean {
+    let q = this.remainingQuestions.find(a => a.id === id);
+    let userStat: Stat = this.statService.getStat(localStorage.username, this.exerciseId);
+    console.log("Stat:", JSON.stringify(userStat));
+    if (correct) {
+      q.correct++;
+      this.multipleChoice ? userStat.correctMulti++ : userStat.correctSimple++;
+      this.correctQuestionAnswers++;
+      console.log("Antes:", this.remainingQuestions.length);
+      console.log("Correct:", q.correct);
+      if (q.correct >= 3) {
+        this.remainingQuestions = this.remainingQuestions.filter(a => a.id !== id);
+      }
+      if (this.remainingQuestions.length === 0) {
+        alert("Respondiste correctamente todas las preguntas. Vamos a empezar de nuevo.");
+        this.setRemainingQuestions();
+      }
+      console.log("Despues:", this.remainingQuestions.length);
+    } else {
+      this.correctQuestionAnswers -= q.correct;
+      this.multipleChoice ? userStat.wrongMulti++ : userStat.wrongSimple++;
+      q.correct = 0;
+      q.wrong++;
+    }
+    this.statService.setStat(userStat);
+    return (this.questions.length === 0);
+  }
 }
