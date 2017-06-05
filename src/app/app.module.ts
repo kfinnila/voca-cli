@@ -15,6 +15,7 @@ import { QuestionComponent } from './exercise/question/question.component';
 import { WordListComponent } from './exercise/exercise/study/word-list/word-list.component';
 import { HomeComponent } from './home/home.component';
 import { UserComponent } from './shared/user/user.component';
+import { StatsComponent } from './exercise/stats/stats.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { UserComponent } from './shared/user/user.component';
     QuestionComponent,
     WordListComponent,
     HomeComponent,
-    UserComponent
+    UserComponent,
+    StatsComponent
   ],
   imports: [
     BrowserModule,

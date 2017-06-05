@@ -1,0 +1,13 @@
+<div class="container">
+  <h3>Estadísticas de usuario {{user}}</h3>
+  <div *ngIf="stats">
+    <div *ngFor="let stat of stats">
+      <label class="description">{{getDescription(stat.id)}}</label><br />
+      <label>Multi correctas:</label><label>{{stat.correctMulti}}</label><br />
+      <label>Multi incorrectas:</label><label>{{stat.wrongMulti}}</label><br />
+      <label>Simple correctas:</label><label>{{stat.correctSimple}}</label><br />
+      <label>Simple incorrectas:</label><label>{{stat.wrongSimple}}</label><br />
+      <br />
+    </div>
+  </div>
+</div>
